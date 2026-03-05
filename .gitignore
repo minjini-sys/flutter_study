@@ -7,6 +7,12 @@
 .buildlog/
 .history
 
+# IntelliJ / Android Studio related
+.idea/
+*.iml
+*.iws
+*.ipr
+/out/
 
 
 # Flutter repo-specific
