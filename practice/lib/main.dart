@@ -1,122 +1,29 @@
+// 'package:flutter/material.dart'는 구글에서 만든 '머티리얼 디자인' UI 부품(버튼, 텍스트 등)들을
+// 사용하기 위해 반드시 가져와야 하는 핵심 라이브러리입니다.
 import 'package:flutter/material.dart';
 
+// 2. main 함수: 앱의 시작점입니다.
+// 앱이 실행되면 가장 먼저 이 main() 함수 안에 있는 코드가 실행됩니다.
+// runApp(const MyApp())은 "나 이제 MyApp이라는 위젯으로 앱을 시작할 거야!"라고 선언하는 것입니다.
 void main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); //MyApp은 메인 페이지이다
 }
 
+// 3. stless (StatelessWidget): "상태가 없는" 위젯을 만드는 단축어입니다.
+// 화면이 한 번 그려지면 중간에 데이터가 바뀌어도 화면이 알아서 다시 그려지지 않는 정적인 위젯입니다.
+// stless를 누르면 아래와 같은 기본 구조가 자동으로 생성됩니다.
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // 생성자(Constructor): 위젯을 만들 때 필요한 설정을 담는 부분입니다.
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  // build 함수: 이 위젯이 화면에 어떻게 보일지 설계도를 그리는 곳입니다.
+  // 이 함수가 return(반환)하는 것이 실제 화면에 그려집니다.
   @override
   Widget build(BuildContext context) {
+    // Placeholder()는 아직 내용을 채우기 전일 때 임시로 사각형 박스를 보여주는 위젯입니다.
+    // 보통은 여기서 MaterialApp()이나 Scaffold()를 반환하며 앱 화면을 구성합니다.
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: Container( width: 50, height: 50, color: Colors.blue)
     );
   }
 }
