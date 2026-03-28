@@ -1,25 +1,68 @@
-// 'package:flutter/material.dart'는 구글에서 만든 '머티리얼 디자인' UI 부품(버튼, 텍스트 등)들을
-// 사용하기 위해 반드시 가져와야 하는 핵심 라이브러리입니다.
 import 'package:flutter/material.dart';
-void main() {
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:geolocator/geolocator.dart';
+import 'mobius_service.dart';
+import 'gps_service.dart'; // ✅ 새로 만든 파일 불러오기
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
-// 3. stless (StatelessWidget): "상태가 없는" 위젯을 만드는 단축어입니다.
-// 화면이 한 번 그려지면 중간에 데이터가 바뀌어도 화면이 알아서 다시 그려지지 않는 정적인 위젯입니다.
-// stless를 누르면 아래와 같은 기본 구조가 자동으로 생성됩니다.
 class MyApp extends StatelessWidget {
-
-  const MyApp({Key? key}) : super(key: key);
-//const MyApp({super.key}); 이거는 최신 버전인데 SDK 버전에 따라 안될 수 있기에 구버전 사용
-  // MyApp 클래스가 만든 생성자이다 Key값으로 생성된 위젯 객체를 구분한다 그 생성자로 생성된 객체를 부모 생성자에게 넘긴다
-  // 이 함수가 return(반환)하는 것이 실제 화면에 그려집니다.
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    // Placeholder()는 아직 내용을 채우기 전일 때 임시로 사각형 박스를 보여주는 위젯입니다.
-    // 보통은 여기서 MaterialApp()이나 Scaffold()를 반환하며 앱 화면을 구성합니다.
-    return MaterialApp(
-      home: Image.asset('flutter-logo-sharing.webp')
+    return MaterialApp(home: const GPSHomePage());
+  }//'home' 설정은 "앱이 켜지자마자 보여줄 첫 화면은 GPSHomePage다!"라는 뜻이다
+}
+
+class GPSHomePage extends StatefulWidget {
+  const GPSHomePage({super.key});
+  @override
+  State<GPSHomePage> createState() => _GPSHomePageState();
+}
+
+class _GPSHomePageState extends State<GPSHomePage> {
+  final MobiusService _mobiusService = MobiusService();
+  final GPSService _gpsService = GPSService(); // ✅ GPS 서비스 소환
+  String _locationMessage = "GPS 데이터를 가져오는 중...";
+
+  @override
+  void initState() {
+    super.initState();
+    _startApp();
+  }
+
+  Future<void> _startApp() async {
+    // 1. 서버 준비: 내 이름표(AE)와 바구니(Container)를 만듭니다.
+    // await는 "서버에서 응답이 올 때까지 다음 줄로 가지 말고 기다려!"라는 뜻입니다.
+    await _mobiusService.createAE();
+    await _mobiusService.createContainer();
+
+    // 2. GPS 권한 확인 및 추적 시작
+    bool hasPermission = await _gpsService.handleLocationPermission();
+    if (hasPermission) {
+      // getPositionStream은 "위치 데이터를 물 흐르듯이 계속 가져오기" 시작합니다.
+      _gpsService.getPositionStream().listen((Position position) {
+        // ⭐ 가장 중요한 부분! setState()
+        // "데이터가 바뀌었으니 화면을 새로 그려!"라고 플러터에게 명령합니다.
+        setState(() {
+          _locationMessage = "위도: ${position.latitude}\n경도: ${position.longitude}";
+        });
+        // 3. 나중에 여기서 서버로 전송!
+        // _mobiusService.sendGPSData(position.latitude, position.longitude);
+      });
+    }
+  }
+
+  //"화면을 어떤 모양으로 만들 건데?"에 대한 설계도
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Mobius Tracker")),
+      body: Center(child: Text(_locationMessage, textAlign: TextAlign.center)),
     );
   }
 }
