@@ -15,13 +15,15 @@ class MobiusService {
       final response = await http.post(
         Uri.parse(baseUrl), // "http://AWS_IP:7577/Mobius" 주소로 편지를 보냅니다.
         headers: {
-          'X-M2M-Origin': 'SOrigin', // "나는 처음 온 사람(SOrigin)이야"라는 뜻의 임시 신분증
-          'Content-Type': 'application/json;ty=2', // "내가 지금 보내는 건 AE(ty=2) 등록증이야!"
+          'X-M2M-Origin': 'SOrigin', // X-M2M-Origin은 누가 보냈는가를 뜻한다. SOrigin은 임시 신분증(아직 정식 ID가 없기에 사용)
+          'Content-Type': 'application/json;ty=2', // Content-Type은 편지 안에 어떤 내용이 들어있는 지 뜻함
+          //ty=2는 AE(Application Entity)를 뜻함, 지금 앱 등록하러 왔다는 뜻
+          //AE는 사용자 ID
         },
-        body: jsonEncode({
-          'm2m:ae': {
+        body: jsonEncode({ //서버 데이터베이스에 저장될 실제 정보
+          'm2m:ae': { //AE 정보를 보낸다
             'rn': aeName, // "내 이름은 PD_GPS_App으로 등록해줘" (가장 중요!)
-            'api': '0.2.481...', // 앱의 고유 아이디 (표준 규격이라 아무 숫자나 넣어도 돼요)
+            'api': '0.2.481...', // 앱의 고유 아이디, 실제 서비스에서는 표준 규격 ID 쓰지만 테스트에는 아무거나 넣어도 상관 없다
             'rr': true, // "나중에 서버가 나한테 연락해도 돼(Reachability)"라는 허락
           }
         }),
