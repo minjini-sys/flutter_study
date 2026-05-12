@@ -1,23 +1,34 @@
-# random_dice
+# flutter 프로젝트 주요 폴더 설명 
 
-A new Flutter project.
+## lib: 심장이자 뇌 
+- .dart 파일이 여기에 들어가있다 
 
-## Getting Started
+## android: 안드로이드 옷
+- 안드로이드 폰에서 실행하기 위한 설정 파일들
 
-This project is a starting point for a Flutter application.
+## ios: 아이폰 옷
+- 아이폰에서 실행하기 위한 설정 파일들이 담겨 있다
 
-A few resources to get you started if this is your first Flutter project:
+## asset: 가방
+- 앱에서 사용하는 이미지, 폰트, 소리 파일등을 모아두는 곳
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## build: 결과물 창고 
+- 앱을 실행하면 자동으로 생성되는 폴더로 조립 완료된 설치 파일들이 들어간다. 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## .dart_tool: 작업 메모장 
+- 플러터 도구들이 내부적으로 사용하는 임시파일들, 건드리면 안된다
 
-### android/settings.gradle (도구 버전 업그레이드)
-Android Gradle Plugin (AGP): 8.1.0 → 8.6.0 (플러터 엔진과의 호환성 해결)
-Kotlin: 1.8.22 → 2.1.0 (최신 안드로이드 코드 해석 지원)
+## .idea: 안드로이드 스튜디오 설정 
+- 에디터(나는 안드로이드 스튜디오) 개인 설정 값(github에 올릴 필요 없다)
 
-### android/gradle/wrapper/gradle-wrapper.properties (공장 엔진 업그레이드)
-distributionUrl: gradle-8.3-all.zip → gradle-8.7-all.zip
+## pubspec.yaml: 설명서이자 주문서 
+- 앱의 이름, 버전 그리고 어떤 외부 라이브러리를 가져올 지 적어두는 아주 중요한 파일 
+
+# 주의 사항
+
+## 에뮬레이터 사용할 경우 
+- 실행해서 성공했다가 다시 실행 해보니 안되는 경우가 있음 그럴때 device manager 들어가서 점 3개 누르고 wipe data 하면 됨
+
+# 파일 설명 
+
+##main.dart
