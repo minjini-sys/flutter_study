@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:isar/isar.dart';
@@ -125,9 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
           )
           .toList();
 
+      final apiKey = dotenv.env['GEMINI_API_KEY'];
+      if (apiKey == null || apiKey.isEmpty) {
+        throw Exception('GEMINI_API_KEY is missing. Add it to your .env file.');
+      }
+
       final model = GenerativeModel(
         model: 'gemini-2.5-flash',
-        apiKey: 'AIzaSyCjq5xDjc4RZGuHedjTKrXkovpJsusR4Ec',
+        apiKey: apiKey,
         systemInstruction:
             Content.system('너는 이제부터 착하고 친절한 친구의 역할을 할거야. 앞으로 채팅을 하면서 긍정적인 말만 할 수 있도록 해줘. 이 메세지는 기억만 하고 여기엔 대답할 필요 없어.'),
       );
