@@ -126,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
           .toList();
 
       final model = GenerativeModel(
-        model: 'gemini-1.5-flash',
-        apiKey: 'AIzaSyCxQnt4nFqj6x1UcB56jr8CCY3onHBZ6Xo',
+        model: 'gemini-2.5-flash',
+        apiKey: 'AIzaSyCjq5xDjc4RZGuHedjTKrXkovpJsusR4Ec',
         systemInstruction:
             Content.system('너는 이제부터 착하고 친절한 친구의 역할을 할거야. 앞으로 채팅을 하면서 긍정적인 말만 할 수 있도록 해줘. 이 메세지는 기억만 하고 여기엔 대답할 필요 없어.'),
       );
