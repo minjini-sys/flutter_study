@@ -1,3 +1,8 @@
+// 채팅 메시지 데이터의 형태를 정의
+// 메시지는 id, isMine, message, point, date를 가진다
+// isMine이 true면 내가 보낸 메시지, false이면 AI가 보낸 메시지
+//@collection이 붙어서 Isar DB에 저장 가능한 모델이 된다
+
 import 'package:isar/isar.dart';
 
 part 'message_model.g.dart';

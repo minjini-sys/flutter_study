@@ -1,3 +1,5 @@
+// 메시지 목록을 보여주고 입력창에서 전송 버튼을 누르면 handleSendMessage()가 실행됨
+// 사용자 메시지를 DB에 저장하고 최근 메시지들을 Gemini API에 보내고 AI응답을 DB에 저장
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
@@ -48,6 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Expanded(
+              //StreamBuilder은 Isar 메시지 목롤을 계속 감시
+              // DB에 메시지가 추가되거나 수정되면 자동으로 하면을 다시 그림
+              // 사용자가 메시지를 보내거나 AI 응답이 저장되면 별도로 새로고침하지 않아도 채팅창 갱신
               child: StreamBuilder<List<MessageModel>>(
                 stream: GetIt.I<Isar>().messageModels.where().watch(fireImmediately: true),
                 builder: (context, snapshot) {
@@ -62,6 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ChatTextField(
                 error: error,
                 loading: isRunning,
+                // 사용자가 입력창에 메시지를 쓰고 전송 버튼을 누르면 handSendMessage() 실행
+                // 먼저 빈 메시지인지 확인하고 아니면 사용자의 메시지를 MessageModel로 만들어 Isar에 저장
+                // 이 순간 StreamBuilder가 반응해서 내가 보낸 말풍선이 화면에 나타난다
+                // 그 다음 DB에서 최근 메시지 5개를 가져와 Gemini API가 이해하는 Content 형식으로 바꿈
+                // 내가 보낸 메시지는 role이 user, AI 메시지는 role이 model이 된다
+                // 이렇게 해야 Gemini가 이전 대화 맥락을 어느 정도 기억하는 것처럼 응답할 수 있다
+
                 onSend: handleSendMessage,
                 controller: controller,
               ),
@@ -139,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       String message = '';
-
+      // Gemini 응답을 스트리밍 형식으로 받음(글자가 조금씩 도착하는 방식)
       model.generateContentStream(promptContext).listen(
             (event) async {
               if (event.text != null) {

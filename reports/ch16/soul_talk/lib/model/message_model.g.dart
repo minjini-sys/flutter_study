@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// message_model.dart를 보고 DB 저장/ 조회 코드를 만들어둔 결과물
 part of 'message_model.dart';
 
 // **************************************************************************
