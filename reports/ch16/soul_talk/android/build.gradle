@@ -10,12 +10,12 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
-subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
+subprojects { // 1. 내 프로젝트에 포함된 모든 플러그인(하위 프로젝트)을 다 불러온다.
+    afterEvaluate { project -> // 2. 각 플러그인의 설정이 끝난 직후에 실행한다.
+        if (project.hasProperty('android')) { // 3. 그 플러그인이 안드로이드 관련 플러그인인지 확인한다.
             project.android {
-                if (namespace == null) {
-                    namespace project.group
+                if (namespace == null) { // 4. 만약 이 플러그인에 'namespace' 설정이 비어있다면?
+                    namespace project.group // 5. 플러그인의 'group' 이름(패키지명)을 강제로 namespace에 할당한다!
                 }
             }
         }

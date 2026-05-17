@@ -1,16 +1,53 @@
-# soul_talk
+# 사용자 채팅 메시지 입력/전송
+# Stream으로 제미나이 응답 실시간으로 받아오기 
+# Isar 데이터베이스에 채팅 기록 저장 및 조회 
+## http 요청 
+- TCP, UDP 방식 사용
+- 프로토콜/호스트/포트/리소스 주소/쿼리
 
-A new Flutter project.
+## REST API
+- HTTP의 GET, POST, PUT, DELETE 메소드를 이용해서 통신
 
-## Getting Started
+### GET 메소드 
+- 서버로부터 데이터를 가져온다 
 
-This project is a starting point for a Flutter application.
+### POST 메소드 
+- 데이터를 서버에 저장
 
-A few resources to get you started if this is your first Flutter project:
+### PUT 메소드 
+- 데이터 업데이트
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### DELETE 메소드
+- 데이터 삭제
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Isar 데이터베이스 
+- 데이터를 컬렉션 단위로 나눈다
+- 컬렉션: 특정 자료형 객체를 모아 관리하는 개념
+- @collection로 정의한다. 
+- 컬렉션 정의하고 나서 빌드 러너 실행
+
+# 파일 설명 
+
+## build.gradle
+- 프로젝트 수준 빌드 설정 파일
+- 라이브러리 어디서 다운로드 할 지 지정
+- 빌드 경로 설정: 결과물 저장될 위치 정의 
+- 모든 모듈에 공통으로 적용될 설정 관리 
+
+## pubspec.yaml 
+- 주문서 
+- pub get을 해야 Google의 Pub 저장소에서 해당 라이브러리의 소스 코드를 다운로드하여 내 컴퓨터의 캐시 폴더에 저장한다
+
+## soul_talk과 soul_talk_templete 폴더 나눠져 있는 이유 
+- soul_talk은 완성본이고 soul_talk_template는 핵심 기능이 비워져있는 실습용 시작 코드이다. 
+- 이 두 폴더는 pubspec.yaml을 따로 가지고 있기에 상호작용하지 않고 독립적이다. 
+
+# 프로젝트 설명 
+
+- 화면은 하나의 스크롤 가능한 단일 스크린으로 이루어졌다
+- 가장 위에는 앱의 로고와 설명이 위치
+- 채팅한 날짜가 변경될 때마다 날짜가 화면에 출력되며 그 밑으로 해당 날짜에 진행한 채팅 출력
+- 내가 보낸 채팅 메시지 아래에 한번씩 채팅을 할 때마다 쌓이는 포인트도 표시 
+
+## 제미나이 연동 
+- 구글에서 제미나이와 쉽게 연결할 수 있는 플러터 SDK 제공

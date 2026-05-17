@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PointNotification extends StatelessWidget {
+  // 포인트
   final int point;
 
   const PointNotification({

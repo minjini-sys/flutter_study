@@ -8,6 +8,7 @@ import 'package:soul_talk/component/logo.dart';
 import 'package:soul_talk/component/message.dart';
 import 'package:soul_talk/model/message_model.dart';
 
+// API 연동 전에 UI가 의도한 대로 출력되는 걸 확인하는 샘플 데이터
 final sampleData = [
   MessageModel(
     id: 1,
@@ -25,7 +26,7 @@ final sampleData = [
   ),
 ];
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget { //HomeScreen 위젯 생성
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -125,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
           .toList();
 
       final model = GenerativeModel(
-        model: 'gemini-1.5-flash',
-        apiKey: 'AIzaSyAnPsqr3-4UhRi-Plw1bDo4QkThuQTFtBg',
+        model: 'gemini-pro',
+        apiKey: 'AIzaSyCxQnt4nFqj6x1UcB56jr8CCY3onHBZ6Xo',
         systemInstruction:
             Content.system('너는 이제부터 착하고 친절한 친구의 역할을 할거야. 앞으로 채팅을 하면서 긍정적인 말만 할 수 있도록 해줘. 이 메세지는 기억만 하고 여기엔 대답할 필요 없어.'),
       );
@@ -185,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // 적절한 가로세로 패딩과 함께 Logo를 반환하는 함수ㅁ
   Widget buildLogo() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),

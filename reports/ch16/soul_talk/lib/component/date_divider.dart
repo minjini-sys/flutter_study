@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// 날짜를 입력받고 화면에 출력하는 위젯
 class DateDivider extends StatelessWidget {
   final DateTime date;
 
