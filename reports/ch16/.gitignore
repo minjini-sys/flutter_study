@@ -41,3 +41,20 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# ch16 하위의 모든 프로젝트 빌드 파일 숨기기
+**/build/
+**/.dart_tool/
+**/.packages
+**/.pub/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+
+# Android 관련 임시 파일 숨기기
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+# 문제의 IntelliJ 설정 파일 숨기기
+.idea/
+*.iml
